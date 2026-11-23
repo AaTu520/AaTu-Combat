@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="aatu_combat"
+version="${mod_version}"
+displayName="Aatu Combat"
+description='''Logical-server armor, toughness and dynamic protection pool. Supports dedicated servers and single-player. Clients joining a server do not need this mod.'''
+
+[[dependencies.aatu_combat]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.250,21.2)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.aatu_combat]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="BOTH"
+
+[[mixins]]
+config="aatu_combat.mixins.json"

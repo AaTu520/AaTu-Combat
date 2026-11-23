@@ -1,0 +1,91 @@
+#服务端配置。修改后重启服务器生效；两个恢复方式可以同时开启。
+[general]
+	#总开关。关闭后恢复宿主原有伤害公式和属性上限。
+	enabled = true
+
+[limits]
+	#使用自定义上限时的护甲上限。
+	# Default: 3000.0
+	# Range: 0.0 ~ 1000000.0
+	armorMaximum = 3000.0
+	#使用自定义上限时的护甲韧性上限。
+	# Default: 2000.0
+	# Range: 0.0 ~ 1000000.0
+	toughnessMaximum = 2000.0
+	#AUTO：安装 AttributeFix 时沿用其上限，否则使用下面的自定义上限。
+	#CUSTOM：始终使用下面的护甲/韧性上限。HOST：始终保留宿主或其他模组设置。
+	#防护池始终根据实际生效属性计算，不固定为 6000，也不会按属性上限直接填满。
+	#Allowed Values: AUTO, CUSTOM, HOST
+	mode = "AUTO"
+
+#防护池 = 护甲×armorMultiplier + 韧性×toughnessMultiplier×min(护甲/synergyArmorReference, 1)。
+[pool]
+	#护甲提供的防护池倍率。
+	# Default: 1.0
+	# Range: 0.0 ~ 1000.0
+	armorMultiplier = 1.0
+	#韧性提供的协同倍率；没有护甲时不提供防护池。
+	# Default: 1.5
+	# Range: 0.0 ~ 1000.0
+	toughnessMultiplier = 1.5
+	#韧性完全发挥作用所需护甲。
+	# Default: 3000.0
+	# Range: 0.001 ~ 1000000.0
+	synergyArmorReference = 3000.0
+
+#先扣防护池，再对剩余伤害计算减伤；附魔与抗性随后由原流程处理。
+[damage]
+	#护甲/韧性的减伤上限；0.9 = 90%。不限制后续抗性等其他减伤。
+	# Default: 0.9
+	# Range: 0.0 ~ 1.0
+	maximumReduction = 0.9
+	#有效护甲转为减伤率时的除数。
+	# Default: 25.0
+	# Range: 0.001 ~ 1000000.0
+	armorDivisor = 25.0
+	#高伤害时保留的护甲比例。
+	# Default: 0.2
+	# Range: 0.0 ~ 1.0
+	minimumArmorFraction = 0.2
+	#削甲公式分母的基础值。
+	# Default: 2.0
+	# Range: 0.001 ~ 1000000.0
+	baseToughness = 2.0
+	#分母 = baseToughness + 韧性/toughnessDivisor。
+	# Default: 4.0
+	# Range: 0.001 ~ 1000000.0
+	toughnessDivisor = 4.0
+	#韧性独立减伤最多 5%；仍受 maximumReduction 限制。
+	# Default: 0.05
+	# Range: 0.0 ~ 1.0
+	soloToughnessReduction = 0.05
+	#达到独立韧性减伤上限所需的韧性。
+	# Default: 2000.0
+	# Range: 0.001 ~ 1000000.0
+	soloToughnessReference = 2000.0
+
+[bypassProtection]
+	#直接破甲抵伤使用的独立韧性池容量倍率；每 5 点池抵挡 1 点伤害，单次最多抵挡 50%。
+	# Default: 1.25
+	# Range: 0.0 ~ 1000.0
+	toughnessPoolMultiplier = 1.25
+
+	[recovery.idle]
+		#启用未受击恢复。被防护池完全挡住的有效攻击也重置等待时间。
+		enabled = true
+		#停止受击后等待的秒数（20 游戏刻 = 1 秒）。
+		# Default: 3.0
+		# Range: 0.0 ~ 86400.0
+		delaySeconds = 3.0
+		#每秒恢复最大防护池的比例；0.05 = 5%。
+		# Default: 0.05
+		# Range: 0.0 ~ 1.0
+		fractionPerSecond = 0.05
+
+	[recovery.healing]
+		#统一处理自然回血、瞬间治疗、生命恢复等经 heal 接口产生的实际回血。
+		enabled = true
+		#恢复池 = 最大池×实际回血/最大生命×此倍率。满血、被取消的治疗不恢复。
+		# Default: 1.0
+		# Range: 0.0 ~ 1000.0
+		multiplier = 1.0

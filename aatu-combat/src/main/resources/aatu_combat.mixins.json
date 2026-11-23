@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.aatu.combat.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "LivingEntityDamageAccess", "DamageContainerTraceMixin", "CombatRulesMixin", "LivingEntityHealingMixin",
+    "PlayerBypassProtectionMixin", "MobEffectInstanceMixin", "ThrownPotionMixin",
+    "AreaEffectCloudMixin", "DreamResonanceMixin", "PlayerDamageRecapMixin", "ServerPlayerDeathRecapMixin"
+  ],
+  "injectors": {"defaultRequire": 1}
+}
